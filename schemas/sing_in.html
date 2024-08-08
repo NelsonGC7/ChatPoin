@@ -9,19 +9,19 @@
 </head>
 <body>
     <section id="section_in">
-    <h1 id="title_in">Sign in</h1>
-    <form action="" id="form_in">
-    <ul>
-    <input type="text" id="user" placeholder="Usuario name:">
-    <hr>
-    <input type="password" id="password" placeholder="New password">
-    <hr>
-    <input type="password" id="password_afirm" placeholder="Repeat password">
-    <hr>
-    <button onclick="values()">send</button>
-</ul>
-    </form>
-</section>
+        <h1 id="title_in">Sign in</h1>
+        <form id="form_in" onsubmit="return values(event)">
+            <ul>
+                <input type="text" id="user" placeholder="Usuario name:" required>
+                <hr>
+                <input type="password" id="password" placeholder="New password" required>
+                <hr>
+                <input type="password" id="password_afirm" placeholder="Repeat password" required>
+                <hr>
+                <button type="submit">Send</button>
+            </ul>
+        </form>
+    </section>
 </body>
 <script src="/scripts/sing.js"></script>
 </html>
