@@ -9,7 +9,6 @@ function validarPass(pass) {
 const send  = document.getElementById('send');
 send.addEventListener('click',(e)=>{
     e.preventDefault()
-    
     if(validarPass(input.password.value)){
         console.log(input.password.value)
     }else{
@@ -18,6 +17,4 @@ send.addEventListener('click',(e)=>{
             input.password.style.border= "none" 
         },800)
     }
-
-
 })
