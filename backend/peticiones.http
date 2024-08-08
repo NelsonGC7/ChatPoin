@@ -1,0 +1,13 @@
+### pedir todos los usuarios
+GET http://localhost:3001/users
+
+### crear un usuario
+
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "userName": "pepe25",
+    "email":"pepe4@hotmail.com",
+    "password":"12345hahah"
+}
