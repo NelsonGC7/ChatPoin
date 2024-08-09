@@ -11,7 +11,7 @@ Content-Type: application/json
     "email":"pepte@hotmail.com",
     "password":"12345hahah"
 }
-### verificar si existe un usuario con  HEAD 
+### verificar si existe un usuario con el usuerName y password correcta 
 
 GET  http://localhost:3001/user
 Content-Type: application/json
