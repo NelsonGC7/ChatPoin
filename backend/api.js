@@ -9,12 +9,19 @@ const data = fs.readFileSync(file);
 const jsonData = JSON.parse(data);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 5000;
 app.use(express.json());
+
+
 app.get('/users',(req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.status(200).json(jsonData);
 })
-app.post('/users',(req,res)=>{
+app.post('/users',(req,res)=>{  
+
+
     const {userName, email, password} = req.body;
     const userExist = jsonData.find(user => {
         if(user.email === email){
@@ -42,6 +49,9 @@ app.post('/users',(req,res)=>{
     res.status(201).json(new_user);
 })
 app.get('/user',(req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     const{ userName,password }= req.body;
     const userExist = jsonData.find(user =>{
         if(user.userName === userName && user.password === password){
@@ -51,10 +61,11 @@ app.get('/user',(req,res)=>{
     if(!userExist || userExist.length === 0){
         return res.status(424).json({msg: 'User not found'})
     }else{
-        return res.status(200).json(userExist);
+        return res.status(200).json({msg:"user found"});
     };
     
 });
+
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`);
 })
