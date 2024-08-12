@@ -1,5 +1,3 @@
-
-
 const input = {
     user: document.getElementById('user'),
     password: document.getElementById('pass')
@@ -13,8 +11,8 @@ const newCount = document.getElementById('new');
 
 newCount.addEventListener('click',(e)=>{
     e.preventDefault()
-    window.location.href = 'http://127.0.0.1:5500/schemas/rejister.html'
-
+    console.log("click")
+    window.location.href = 'http://127.0.0.1:5500/schemas/rejister.html?';
 })
 
 send.addEventListener('click',(e)=>{
@@ -23,19 +21,33 @@ send.addEventListener('click',(e)=>{
         userName: input.user.value,
         password: input.password.value
     }
-    console.log(newUsuario)
     if(validarPass(input.password.value) && input.user.value.length > 0){
-        axios.get('http://localhost:5000/users',newUsuario)
+        fetch('http://localhost:5000/users',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(newUsuario)
+        })
         .then(res=>{
-            console.log(res.data)
+            if(res.status === 203){
+                window.location.href = 'http://127.0.0.1:5500/public/index.html';
+            }
         }).catch(err=>{
-            console.log(err)
+            input.password.style.border= "1px red solid";
+                input.user.style.border= "1px red solid";
+                setTimeout(()=>{
+                    input.password.style.border= "none";
+                    input.user.style.border= "none" ;
+                },800)
         })
         
     }else{
-        input.password.style.border= "1px red solid"
-        setTimeout(()=>{
-            input.password.style.border= "none" 
-        },800)
+        input.password.style.border= "1px red solid";
+        input.user.style.border= "1px red solid";
+                setTimeout(()=>{
+                    input.password.style.border= "none";
+                    input.user.style.border= "none" ;
+                },800)
     }
 })

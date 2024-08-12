@@ -21,21 +21,35 @@ function validarPass(pass) {
 }
 send.addEventListener('click',(e)=>{
     e.preventDefault()
-    console.log(send)
-    if(validarEmail(input.correo.value)){
-        console.log(input.password.value)
-    }else{
-        input.correo.style.border= "1px red solid"
-        setTimeout(()=>{
-            input.correo.style.border= "none" 
-        },800)
+    const newU ={
+        userName: input.user.value,
+        email: input.correo.value,
+        password: input.password.value
     }
-    if(validarPass(input.password.value)){
-        console.log(input.password.value)
+    console.log(send)
+    if(validarEmail(input.correo.value) && validarPass(input.password.value)){
+        fetch('http://localhost:5000/users/new',{
+            method: 'POST',
+            headers:{
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newU)
+        }).then(res=> {
+            res.status === 201 ? 
+            window.location.href = 'http://127.0.0.1:5000/public/index.html' 
+            : 
+            console.log('error');
+            res.status === 409 ? console.log('User already exist') : console.log('error');
+            
+        })
+        
+            .catch(err => console.log(err));
     }else{
         input.password.style.border= "1px red solid"
+        input.correo.style.border= "1px red solid"
         setTimeout(()=>{
-            input.password.style.border= "none" 
+            input.password.style.border= "none"
+            input.correo.style.border= "none" 
         },800)
     }
 })
