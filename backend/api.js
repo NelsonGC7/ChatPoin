@@ -12,16 +12,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
-
+/*
 app.get('/users',(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
     res.status(200).json(jsonData);
 })
+*/
+
+
 app.post('/users',(req,res)=>{  
-
-
     const {userName, email, password} = req.body;
     const userExist = jsonData.find(user => {
         if(user.email === email){
@@ -48,7 +50,7 @@ app.post('/users',(req,res)=>{
     fs.writeFileSync(file,updateData);
     res.status(201).json(new_user);
 })
-app.get('/user',(req,res)=>{
+app.get('/users',(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -63,7 +65,6 @@ app.get('/user',(req,res)=>{
     }else{
         return res.status(200).json({msg:"user found"});
     };
-    
 });
 
 app.listen(PORT,()=>{
