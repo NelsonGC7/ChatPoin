@@ -1,29 +1,37 @@
 
 
-//API requires ------------------------------------
-const express = require('express');
-const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
-const cors = require('cors');
+//API requires ----------------------------------
+import express from 'express';
+import crypto from 'crypto';
+import fs from 'fs';
+import cors from 'cors';
+
 
 //socket.io requires-----------------------------------------------------
 
-const  logger = require('morgan');
-const  {Server} = require('socket.io');
-const {createServer} = require('http') 
+import logger from 'morgan';
+import {Server} from 'socket.io';
+import { createServer } from 'http';
+import{ dirname ,join} from 'path';
+import { fileURLToPath } from 'url';
 
 
 //API de comucicacion con el front------------------
-const file= path.join(__dirname,'data.json')
-const data = fs.readFileSync(file);
-const jsonData = JSON.parse(data);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const file = join (__dirname,'data.json')
 
 const app = express();
 app.use(logger('dev'));
 
 app.use(cors());
 app.use(express.json());
+
+
+app.get('/chat', (req, res) => {
+    res.sendFile(process.cwd() + '/public/index.html');
+});
 /*
 app.get('/users',(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
@@ -82,9 +90,14 @@ app.post('/users',(req,res)=>{
 const PORTsocket = process.env.PORT || 42066;
 const socketServer = createServer(app);
 
+
 const io  = new Server(socketServer)
 io.on('connection',(socket)=>{
     console.log("user connected")
+
+    socket.on('disconnect',()=>{
+        console.log('user disconnected')
+    })
 })
 
 socketServer.listen(PORTsocket,()=>{

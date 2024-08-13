@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "desktop => 1200px\r movile => 400px a 750px",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon backend/api.js",
