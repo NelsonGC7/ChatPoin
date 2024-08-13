@@ -7,18 +7,47 @@ function validarPass(pass) {
     return passwordRegex.test(pass);
 }
 const send  = document.getElementById('send');
+const newCount = document.getElementById('new');
+
+newCount.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log("click")
+    window.location.href = 'http://127.0.0.1:5500/schemas/rejister.html?';
+})
 
 send.addEventListener('click',(e)=>{
     e.preventDefault()
+    const newUsuario = {
+        userName: input.user.value,
+        password: input.password.value
+    }
     if(validarPass(input.password.value) && input.user.value.length > 0){
-        fetch('http://localhost:3001/users')
-        .then(res=>res.json())
-        .then(data=>console.log(data))
+        fetch('http://localhost:5000/users',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(newUsuario)
+        })
+        .then(res=>{
+            if(res.status === 203){
+                window.location.href = 'http://127.0.0.1:5500/public/index.html';
+            }
+        }).catch(err=>{
+            input.password.style.border= "1px red solid";
+                input.user.style.border= "1px red solid";
+                setTimeout(()=>{
+                    input.password.style.border= "none";
+                    input.user.style.border= "none" ;
+                },800)
+        })
         
     }else{
-        input.password.style.border= "1px red solid"
-        setTimeout(()=>{
-            input.password.style.border= "none" 
-        },800)
+        input.password.style.border= "1px red solid";
+        input.user.style.border= "1px red solid";
+                setTimeout(()=>{
+                    input.password.style.border= "none";
+                    input.user.style.border= "none" ;
+                },800)
     }
 })

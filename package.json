@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "desktop => 1200px\r movile => 400px a 750px",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/api.js",
     "dev": "nodemon backend/api.js",
@@ -11,7 +12,10 @@
   "author": "pit",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "4.19.2",
-    "nodemon": "3.1.4"
+    "morgan": "1.10.0",
+    "nodemon": "3.1.4",
+    "socket.io": "4.7.5"
   }
 }
