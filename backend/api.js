@@ -91,12 +91,20 @@ const PORTsocket = process.env.PORT || 42066;
 const socketServer = createServer(app);
 
 
-const io  = new Server(socketServer)
+const io = new Server(socketServer,{
+    connectionStateRecovery: {}
+  });
+
 io.on('connection',(socket)=>{
     console.log("user connected")
 
     socket.on('disconnect',()=>{
-        console.log('user disconnected')
+        console.log('USUARIO DESCONECTADO')
+    })
+
+    socket.on('chat message', (msg)=>{
+        io.emit('chat message',msg)
+
     })
 })
 
