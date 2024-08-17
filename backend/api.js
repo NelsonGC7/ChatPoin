@@ -6,6 +6,17 @@ import crypto from 'crypto';
 import fs from 'fs';
 import cors from 'cors';
 
+//base de datos-----------------------------------
+import { createClient } from '@libsql/client';
+
+const bd = createClient({
+    url:"libsql://chatmeet-nelsongc7.turso.io",
+    authToken:'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjM4NDI3MTYsImlkIjoiZTZjOGNiZGQtOTQyNy00ODNhLWI4ZTUtZDJhZjc4MWEwZDEyIn0.XCwL3PxDbLhYU_Ou8bwSgbKyyCd3OPykxtMG7CaPekkA_q8axW6k_oEZc9J5LufGGMzhlvPaJwS2kHuRtifdCA'
+})
+
+
+
+
 
 //socket.io requires-----------------------------------------------------
 
@@ -32,6 +43,10 @@ app.use(express.json());
 app.get('/chat', (req, res) => {
     res.sendFile(process.cwd() + '/public/index.html');
 });
+
+app.get('/login',(req,res)=>{
+    res.sendFile(process.cwd() + '/schemas/login.html');
+})
 /*
 app.get('/users',(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
@@ -92,19 +107,16 @@ const socketServer = createServer(app);
 
 
 const io = new Server(socketServer,{
-    connectionStateRecovery: {}
+    connectionStateRecovery: true,
   });
 
 io.on('connection',(socket)=>{
     console.log("user connected")
-
     socket.on('disconnect',()=>{
         console.log('USUARIO DESCONECTADO')
     })
-
     socket.on('chat message', (msg)=>{
         io.emit('chat message',msg)
-
     })
 })
 
