@@ -6,14 +6,9 @@ function validarPass(pass) {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return passwordRegex.test(pass);
 }
-const send  = document.getElementById('send');
-const newCount = document.getElementById('new');
 
-newCount.addEventListener('click',(e)=>{
-    e.preventDefault()
-    console.log("click")
-    window.location.href = 'http://127.0.0.1:5500/schemas/rejister.html?';
-})
+
+
 
 send.addEventListener('click',(e)=>{
     e.preventDefault()

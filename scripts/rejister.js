@@ -5,11 +5,6 @@ const input = {
 }
 const send  = document.getElementById('send');
 const ya = document.getElementById('ya');
-ya.addEventListener('click',(e)=>{
-    e.preventDefault()
-    window.location.href = 'http://127.0.0.1:5500/schemas/login.html'
-
-})
 
 function validarEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
